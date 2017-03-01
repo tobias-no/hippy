@@ -1,2 +1,2 @@
 # hippy
-software for hippi project
+software for hippi project on pi zero
