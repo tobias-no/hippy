@@ -5,6 +5,7 @@
 #for communication with hardware via uart and i2c
 import smbus
 import serial
+#import picamera
 
 class I2CStuff(object):
     def __init__(self):
