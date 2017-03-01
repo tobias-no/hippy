@@ -34,14 +34,16 @@ class CamStuff(object):
 
     #some additional parameters like shutter speed or iso might be necessary
     def standard_capture(self, path, filename, width=1024, height=768):
-        cam = picamera.PiCamera()
-        cam.resolution = (1024, 768)
+        #ensure that camera object is closed in the end to save energy
+        #leaving object open requires about 250mA!!!
+        with picamera.PiCamera() as cam:
+            cam.resolution = (1024, 768)
 
-        #test if warm-up is really necessary
-        cam.start_preview()
-        sleep(2) 
+            #cam.start_preview() #needed??
+            #test how much warm-up time is really necessary
+            sleep(2) 
 
-        cam.capture(os.path.join(path, filename), resize=(width, height))
+            cam.capture(os.path.join(path, filename), resize=(width, height))
 
         return os.path.join(path, filename)
 
