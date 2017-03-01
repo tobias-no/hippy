@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 #! -*- coding: utf-8 -*-
 
+import os
+
 #these packages should provide hopefully sufficient methods 
 #for communication with hardware via uart and i2c
 import smbus
 import serial
 #import picamera
+
+from time import time, sleep
 
 class I2CStuff(object):
     def __init__(self):
@@ -27,6 +31,20 @@ class UARTStuff(object):
 class CamStuff(object):
     def __init__(object):
         pass
+
+    #some additional parameters like shutter speed or iso might be necessary
+    def standard_capture(self, path, filename, width=1024, height=768):
+        cam = picamera.PiCamera()
+        cam.resolution = (1024, 768)
+
+        #test if warm-up is really necessary
+        cam.start_preview()
+        sleep(2) 
+
+        cam.capture(os.path.join(path, filename), resize=(width, height))
+
+        return os.path.join(path, filename)
+
 
 
 
